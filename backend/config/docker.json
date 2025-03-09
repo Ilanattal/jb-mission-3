@@ -1,0 +1,9 @@
+{
+    "db": {
+        "host": "db",
+        "user": "root",
+        "password": "",
+        "database": "dev_meetings",
+        "port": 3306
+      }
+}

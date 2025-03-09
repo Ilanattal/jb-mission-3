@@ -1,0 +1,21 @@
+{
+    "app": {
+        "port": "3000",
+        "name": "[name the app]",
+        "secret": "MySecret",
+        "jwtSecret": "MyJwtSecret"
+    },
+    "db": {
+        "host": "db",
+        "user": "root",
+        "password": "",
+        "database": "dev_meetings",
+        "port": 3306
+      },
+    "sequelize": {
+        "logging": true,
+        "sync": {
+            "force": false
+        }
+    }
+}
