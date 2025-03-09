@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./AddMeetingForm.css";
 
-// Définition du type de réunion
+// Define the meeting type
 interface Meeting {
   description: string;
   room: string;
@@ -9,7 +9,7 @@ interface Meeting {
   group_id: number;
 }
 
-// Définition du type des props
+// Define the props type
 interface AddMeetingFormProps {
   addMeeting: (meeting: Meeting) => void;
   teams: { id: number; name: string }[];
@@ -24,7 +24,7 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ addMeeting, teams }) =>
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!description || !room || !date || !teamId) {
-      alert("Tous les champs sont requis !");
+      alert("All fields are required!");
       return;
     }
 
@@ -35,7 +35,7 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ addMeeting, teams }) =>
       group_id: Number(teamId),
     });
 
-    // Réinitialisation du formulaire
+    // Reset the form
     setDescription("");
     setRoom("");
     setDate("");
@@ -45,7 +45,7 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ addMeeting, teams }) =>
   return (
     <form className="meeting-form" onSubmit={handleSubmit}>
       <select value={teamId} onChange={(e) => setTeamId(Number(e.target.value))}>
-        <option value="">Sélectionner une équipe</option>
+        <option value="">Select a team</option>
         {teams.map((team) => (
           <option key={team.id} value={team.id}>{team.name}</option>
         ))}
@@ -58,7 +58,7 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ addMeeting, teams }) =>
       />
       <input
         type="text"
-        placeholder="Salle"
+        placeholder="Room"
         value={room}
         onChange={(e) => setRoom(e.target.value)}
       />
@@ -67,7 +67,7 @@ const AddMeetingForm: React.FC<AddMeetingFormProps> = ({ addMeeting, teams }) =>
         value={date}
         onChange={(e) => setDate(e.target.value)}
       />
-      <button type="submit">Ajouter</button>
+      <button type="submit">Add</button>
     </form>
   );
 };

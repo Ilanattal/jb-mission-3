@@ -3,8 +3,8 @@ import "../index.css"
 const Home = () => {
     return (
       <div>
-        <h1>Bienvenue sur le site de gestion des réunions</h1>
-        <p>Sélectionnez une équipe pour voir ses réunions ou ajoutez une nouvelle réunion.</p>
+        <h1>Welcome to the Meeting Management Site</h1>
+        <p>Select a team to view its meetings or add a new meeting.</p>
       </div>
     );
   };

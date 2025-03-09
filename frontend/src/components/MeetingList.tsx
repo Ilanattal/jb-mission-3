@@ -10,23 +10,23 @@ interface Meeting {
 
 interface MeetingListProps {
   meetings: Meeting[];
-  onDelete: (id: number) => void; // Fonction de suppression
+  onDelete: (id: number) => void; // Delete function
 }
 
 const MeetingList: React.FC<MeetingListProps> = ({ meetings, onDelete }) => {
   return (
     <div className="meeting-list">
-      <h2>📅 Liste des réunions</h2>
+      <h2>📅 Meeting List</h2>
       {meetings.length === 0 ? (
-        <p>Aucune réunion prévue.</p>
+        <p>No meetings scheduled.</p>
       ) : (
         <table className="meeting-table">
           <thead>
             <tr>
               <th>Description</th>
-              <th>Salle</th>
-              <th>Date et heure</th>
-              <th>Action</th> {/* Nouvelle colonne pour le bouton */}
+              <th>Room</th>
+              <th>Date and Time</th>
+              <th>Action</th> {/* New column for the button */}
             </tr>
           </thead>
           <tbody>
@@ -40,7 +40,7 @@ const MeetingList: React.FC<MeetingListProps> = ({ meetings, onDelete }) => {
                     className="delete-btn"
                     onClick={() => onDelete(meeting.id)}
                   >
-                    🗑 Supprimer
+                    🗑 Delete
                   </button>
                 </td>
               </tr>

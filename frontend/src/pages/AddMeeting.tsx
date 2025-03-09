@@ -20,7 +20,7 @@ const AddMeeting = () => {
   useEffect(() => {
     axios.get("/teams")
       .then(response => setTeams(response.data))
-      .catch(error => console.error("Erreur lors du chargement des équipes :", error));
+      .catch(error => console.error("Error loading teams:", error));
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -30,32 +30,32 @@ const AddMeeting = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     axios.post("/meetings", formData)
-      .then(() => alert("Réunion ajoutée avec succès !"))
-      .catch(error => console.error("Erreur lors de l'ajout de la réunion :", error));
+      .then(() => alert("Meeting successfully added!"))
+      .catch(error => console.error("Error adding the meeting:", error));
   };
 
   return (
     <div>
-      <h2>Ajouter une réunion</h2>
+      <h2>Add a Meeting</h2>
       <form onSubmit={handleSubmit}>
-        <label>Groupe de développement :</label>
+        <label>Development Team:</label>
         <select name="group_id" value={formData.group_id} onChange={handleChange} required>
-          <option value="">Sélectionner une équipe</option>
+          <option value="">Select a team</option>
           {teams.map(team => (
             <option key={team.id} value={team.id}>{team.name}</option>
           ))}
         </select>
 
-        <label>Description :</label>
+        <label>Description:</label>
         <input type="text" name="description" value={formData.description} onChange={handleChange} required />
 
-        <label>Salle :</label>
+        <label>Room:</label>
         <input type="text" name="room" value={formData.room} onChange={handleChange} required />
 
-        <label>Date et heure :</label>
+        <label>Date and Time:</label>
         <input type="datetime-local" name="meeting_datetime" value={formData.meeting_datetime} onChange={handleChange} required />
 
-        <button type="submit">Ajouter</button>
+        <button type="submit">Add</button>
       </form>
     </div>
   );

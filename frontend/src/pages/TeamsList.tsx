@@ -14,12 +14,12 @@ const TeamsList = () => {
   useEffect(() => {
     axios.get("/teams")
       .then(response => setTeams(response.data))
-      .catch(error => console.error("Erreur lors du chargement des équipes :", error));
+      .catch(error => console.error("Error loading teams:", error));
   }, []);
 
   return (
     <div>
-      <h2>Liste des équipes</h2>
+      <h2>Teams List</h2>
       <ul>
         {teams.map(team => (
           <li key={team.id}>

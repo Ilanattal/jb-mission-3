@@ -18,28 +18,28 @@ const Meetings = () => {
     fetchMeetings();
   }, [teamId]);
 
-  // Fonction pour récupérer les réunions
+  // Function to fetch meetings
   const fetchMeetings = () => {
     axios.get(`/meetings-per-team/${teamId}`)
       .then(response => setMeetings(response.data))
-      .catch(error => console.error("Erreur lors du chargement des réunions :", error));
+      .catch(error => console.error("Error loading meetings:", error));
   };
 
-  // Fonction pour supprimer une réunion
+  // Function to delete a meeting
   const deleteMeeting = async (meetingId: number) => {
-    if (window.confirm("Voulez-vous vraiment supprimer cette réunion ?")) {
+    if (window.confirm("Are you sure you want to delete this meeting?")) {
       try {
         await axios.delete(`/meetings/${meetingId}`);
-        setMeetings(meetings.filter(meeting => meeting.id !== meetingId)); // Met à jour la liste après suppression
+        setMeetings(meetings.filter(meeting => meeting.id !== meetingId)); // Update list after deletion
       } catch (error) {
-        console.error("Erreur lors de la suppression de la réunion :", error);
+        console.error("Error deleting the meeting:", error);
       }
     }
   };
 
   return (
     <div>
-      <h2>Réunions de l'équipe</h2>
+      <h2>Team Meetings</h2>
       <ul>
         {meetings.map(meeting => (
           <li key={meeting.id}>
@@ -48,7 +48,7 @@ const Meetings = () => {
               onClick={() => deleteMeeting(meeting.id)} 
               style={{ marginLeft: "10px", color: "white", backgroundColor: "red", border: "none", padding: "5px 10px", cursor: "pointer" }}
             >
-              Supprimer
+              Delete
             </button>
           </li>
         ))}
