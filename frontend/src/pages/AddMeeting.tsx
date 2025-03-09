@@ -1,61 +1,71 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "../services/api";
-import "../components/AddMeetingForm.css";
-
-
-interface Team {
-  id: number;
-  name: string;
-}
 
 const AddMeeting = () => {
-  const [teams, setTeams] = useState<Team[]>([]);
+  const [teams, setTeams] = useState<{ id: number; name: string }[]>([]);
   const [formData, setFormData] = useState({
     group_id: "",
     description: "",
     room: "",
     meeting_datetime: "",
+    end_datetime: ""
   });
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
+    // Récupérer les équipes
     axios.get("/teams")
       .then(response => setTeams(response.data))
-      .catch(error => console.error("Error loading teams:", error));
+      .catch(err => setError("Erreur lors du chargement des équipes"));
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    axios.post("/meetings", formData)
-      .then(() => alert("Meeting successfully added!"))
-      .catch(error => console.error("Error adding the meeting:", error));
+    try {
+      await axios.post("/meetings", formData);
+      alert("Réunion ajoutée avec succès !");
+      setFormData({
+        group_id: "",
+        description: "",
+        room: "",
+        meeting_datetime: "",
+        end_datetime: ""
+      });
+    } catch (err) {
+      setError("Erreur lors de l'ajout de la réunion");
+    }
   };
 
   return (
     <div>
-      <h2>Add a Meeting</h2>
+      <h2>Ajouter une réunion</h2>
       <form onSubmit={handleSubmit}>
-        <label>Development Team:</label>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <label>Équipe :</label>
         <select name="group_id" value={formData.group_id} onChange={handleChange} required>
-          <option value="">Select a team</option>
+          <option value="">Sélectionner une équipe</option>
           {teams.map(team => (
             <option key={team.id} value={team.id}>{team.name}</option>
           ))}
         </select>
 
-        <label>Description:</label>
+        <label>Description :</label>
         <input type="text" name="description" value={formData.description} onChange={handleChange} required />
 
-        <label>Room:</label>
+        <label>Salle :</label>
         <input type="text" name="room" value={formData.room} onChange={handleChange} required />
 
-        <label>Date and Time:</label>
+        <label>Date et heure :</label>
         <input type="datetime-local" name="meeting_datetime" value={formData.meeting_datetime} onChange={handleChange} required />
 
-        <button type="submit">Add</button>
+        <label>Date et heure fin :</label>
+        <input type="datetime-local" name="end_datetime" value={formData.end_datetime} onChange={handleChange} required />
+
+        <button type="submit">Ajouter</button>
       </form>
     </div>
   );

@@ -1,30 +1,27 @@
 import express from "express";
-import cors from "cors";
-import sequelize from "./db/sequelize";
-import teamRoutes from "./routers/teamRoutes";
+import sequelize from "./db/sequelize";  // Assure-toi que sequelize est bien importé
 import meetingRoutes from "./routers/meetingRoutes";
+import teamRoutes from "./routers/teamRoutes";
+import cors from "cors";
+
+
 
 const app = express();
-app.use(cors());
+
+
+app.use(cors());  // Autorise les requêtes venant de n'importe quelle origine
 app.use(express.json());
+app.use(meetingRoutes);  // Routes des meetings
+app.use(teamRoutes);     // Routes des teams
 
-// 📌 Routes
-app.use("/api", teamRoutes);
-app.use("/api", meetingRoutes);
-
-// 📌 Démarrage du serveur et connexion à la base de données
-const startServer = async () => {
-  try {
-    await sequelize.authenticate();
-    console.log("✅ Connexion à la base de données réussie !");
-    await sequelize.sync({ alter: true });
-    console.log("✅ Base de données synchronisée !");
+// Synchronisation des modèles
+sequelize.sync()
+  .then(() => {
+    console.log("Base de données synchronisée !");
     app.listen(3001, () => {
-      console.log("🚀 Serveur démarré sur http://localhost:3001");
+      console.log("Serveur démarré sur http://localhost:3001");
     });
-  } catch (error) {
-    console.error("❌ Erreur de synchronisation de la base de données :", error);
-  }
-};
-
-startServer();
+  })
+  .catch((error) => {
+    console.error("Erreur lors de la synchronisation de la base de données : ", error);
+  });

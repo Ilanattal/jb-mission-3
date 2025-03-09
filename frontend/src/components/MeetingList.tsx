@@ -1,3 +1,4 @@
+import React from "react";
 import "./MeetingList.css";
 
 interface Meeting {
@@ -10,23 +11,23 @@ interface Meeting {
 
 interface MeetingListProps {
   meetings: Meeting[];
-  onDelete: (id: number) => void; // Delete function
+  onDelete: (id: number) => void;
 }
 
 const MeetingList: React.FC<MeetingListProps> = ({ meetings, onDelete }) => {
   return (
     <div className="meeting-list">
-      <h2>📅 Meeting List</h2>
+      <h2>📅 Liste des réunions</h2>
       {meetings.length === 0 ? (
-        <p>No meetings scheduled.</p>
+        <p>Aucune réunion prévue.</p>
       ) : (
         <table className="meeting-table">
           <thead>
             <tr>
               <th>Description</th>
-              <th>Room</th>
-              <th>Date and Time</th>
-              <th>Action</th> {/* New column for the button */}
+              <th>Salle</th>
+              <th>Date et Heure</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -36,12 +37,7 @@ const MeetingList: React.FC<MeetingListProps> = ({ meetings, onDelete }) => {
                 <td>{meeting.room}</td>
                 <td>{new Date(meeting.meeting_datetime).toLocaleString()}</td>
                 <td>
-                  <button
-                    className="delete-btn"
-                    onClick={() => onDelete(meeting.id)}
-                  >
-                    🗑 Delete
-                  </button>
+                  <button onClick={() => onDelete(meeting.id)}>🗑 Supprimer</button>
                 </td>
               </tr>
             ))}

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "../services/api";
 import { Link } from "react-router-dom";
-import "../components/TeamsList.css"
+import "../components/TeamsList.css";
 
 interface Team {
   id: number;
@@ -10,16 +10,21 @@ interface Team {
 
 const TeamsList = () => {
   const [teams, setTeams] = useState<Team[]>([]);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
-    axios.get("/teams")
+    axios.get("http://localhost:3001/teams")
       .then(response => setTeams(response.data))
-      .catch(error => console.error("Error loading teams:", error));
+      .catch(error => {
+        setError("Erreur lors de la récupération des équipes");
+        console.error("Error loading teams:", error);
+      });
   }, []);
 
   return (
     <div>
-      <h2>Teams List</h2>
+      <h2>Liste des équipes</h2>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <ul>
         {teams.map(team => (
           <li key={team.id}>
