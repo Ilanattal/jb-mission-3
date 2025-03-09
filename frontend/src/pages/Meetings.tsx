@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../services/api";
+import "../components/MeetingList.css";
 
 interface Meeting {
   id: number;

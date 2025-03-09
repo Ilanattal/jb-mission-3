@@ -1,37 +1,72 @@
-.meeting-form {
+/* 🌟 Style général du formulaire */
+h2{
+    text-align: center;
+}
+
+form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    max-width: 400px;
-    margin: 20px auto;
+    gap: 16px;
+    max-width: 450px;
+    margin: 40px auto;
     padding: 20px;
-    border-radius: 5px;
-    background: #f9f9f9;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .meeting-form input,
-  .meeting-form select,
-  .meeting-form button {
-    padding: 10px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+form:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* 🌟 Style des champs de saisie et select */
+form input,
+form select {
+    width: 100%;
+    padding: 12px;
     border-radius: 5px;
     border: 1px solid #ccc;
-  }
-  
-  .meeting-form button {
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 🌟 Effet au focus */
+form input:focus,
+form select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    transform: scale(1.02);
+}
+
+/* 🌟 Style du bouton */
+form button {
     background-color: #007bff;
     color: white;
     border: none;
-    cursor: pointer;
-  }
-  
-  .meeting-form button:hover {
-    background-color: #0056b3;
-  }
-
-  .meeting-form input[type="number"] {
-    width: 100%;
-    padding: 10px;
+    padding: 14px;
+    font-size: 18px;
     border-radius: 5px;
-    border: 1px solid #ccc;
-  }
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease-in-out;
+}
+
+form button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* 🌟 Responsive pour mobile */
+@media (max-width: 480px) {
+    form {
+        width: 90%;
+        padding: 15px;
+    }
+
+    form button {
+        font-size: 16px;
+    }
+}
